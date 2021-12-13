@@ -7,8 +7,7 @@ const todoControl = document.querySelector('.todo-control'),
     todoCompleted = document.querySelector('.todo-completed');
 
  
-let toDoData = localStorage.getItem('toDoData') ?
-    JSON.parse(localStorage.getItem('toDoData')) : [];
+let toDoData =  [];
 
 
 // localStorage.getItem('toDoData') ?
@@ -48,6 +47,7 @@ const render = function () {
         
         li.querySelector('.todo-remove').addEventListener('click', () => {
             toDoData.splice(id, 1);
+            localStorage.removeItem('toDoData');
             render();
         });
         
@@ -68,14 +68,16 @@ todoControl.addEventListener('submit', function (e) {
     };
     if (headerInput.value !== ''){
         toDoData.push(newToDo);
-        // localStorage.getItem('toDoData')
        
     }
+
+   
      headerInput.value = '' ;
     
     render();
 });
 const firstTime = function () {
+    
     if (localStorage.key('toDoData')) {
         toDoData = JSON.parse(localStorage.getItem('toDoData'));
         render();
