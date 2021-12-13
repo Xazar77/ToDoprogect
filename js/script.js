@@ -11,6 +11,9 @@ let toDoData = localStorage.getItem('toDoData') ?
     JSON.parse(localStorage.getItem('toDoData')) : [];
 
 
+// localStorage.getItem('toDoData') ?
+//     JSON.parse(localStorage.getItem('toDoData')) : [];
+
 const render = function () {
 
      todoCompleted.innerHTML = '';
@@ -47,14 +50,17 @@ const render = function () {
             toDoData.splice(id, 1);
             render();
         });
+        
     });
+    
+   
 
 };
 
 
 todoControl.addEventListener('submit', function (e) {
     e.preventDefault();
-
+    
     const newToDo = {
         
         text: headerInput.value,
@@ -62,9 +68,18 @@ todoControl.addEventListener('submit', function (e) {
     };
     if (headerInput.value !== ''){
         toDoData.push(newToDo);
+        // localStorage.getItem('toDoData')
        
     }
      headerInput.value = '' ;
+    
     render();
 });
+const firstTime = function () {
+    if (localStorage.key('toDoData')) {
+        toDoData = JSON.parse(localStorage.getItem('toDoData'));
+        render();
+    }
+};
+firstTime();
 
